@@ -179,12 +179,19 @@ let heroesDc= [
     "picture": "https://m.media-amazon.com/images/M/MV5BM2JlZTdjMjEtZjY3Zi00ZmUwLWI1NTUtODgxZjVkNDlkNWVlXkEyXkFqcGdeQXVyMTI1MTU5MjQ1._V1_.jpg",
     "name": "The Precense"
 }]
-
 document.addEventListener("DOMContentLoaded", function() {
     const searchInput = document.getElementById("searchInput");
     const comicCompany = document.getElementById("comicCompany");
     const marvelContainer = document.getElementById("marvelHeroesContainer");
     const dcContainer = document.getElementById("DCHeroesContainer");
+    const marvelSection = document.getElementById("marvelSection");
+    const dcSection = document.getElementById("dcSection");
+
+    dcSection.classList.add("hidden");
+    marvelSection.classList.add("hidden");
+
+    showHeroes(heroesMarvel, marvelContainer);
+    showHeroes(heroesDc, dcContainer);
 
     searchInput.addEventListener("input", handleSearch);
     comicCompany.addEventListener("change", handleSearch);
@@ -192,20 +199,24 @@ document.addEventListener("DOMContentLoaded", function() {
     function handleSearch() {
         const searchTerm = searchInput.value.toLowerCase();
         const selectedCompany = comicCompany.value;
-        const filteredHeroes = selectedCompany === "marvel" ? heroesMarvel : heroesDc;
-
-        const filteredResults = filteredHeroes.filter(hero =>
-            hero.name.toLowerCase().includes(searchTerm)
-        );
         marvelContainer.innerHTML = "";
         dcContainer.innerHTML = "";
-
-        showHeroes(filteredResults);
+        if (selectedCompany === 'marvel' || selectedCompany === 'select') {
+            const filteredMarvelResults = heroesMarvel.filter(hero =>
+                hero.name.toLowerCase().includes(searchTerm)
+            );
+            showHeroes(filteredMarvelResults, marvelContainer);
+        }
+        if (selectedCompany === 'dc' || selectedCompany === 'select') {
+            const filteredDcResults = heroesDc.filter(hero =>
+                hero.name.toLowerCase().includes(searchTerm)
+            );
+            showHeroes(filteredDcResults, dcContainer);
+        }
     }
 
     function showHeroes(heroes) {
         const container = comicCompany.value === 'marvel' ? marvelContainer : dcContainer;
-        
         heroes.forEach(hero => {
             const heroElement = createHeroElement(hero);
             container.appendChild(heroElement);
@@ -229,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const buttonElement = document.createElement("button");
         buttonElement.textContent = "VER";
-        buttonElement.classList.add("buttonHeroe"); 
+        buttonElement.classList.add("buttonHeroe");
 
         buttonElement.addEventListener('click', () => {
             showHeroInfo(hero);
@@ -259,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <h2>${hero.name}</h2>
                     <p>${hero.about}</p>
                 </div>
-            </div>  
+            </div>
         `;
         selectedHeroInfo.style.visibility = "visible"
         const buttonCerrar = document.getElementById("buttonCerrar")
@@ -267,19 +278,27 @@ document.addEventListener("DOMContentLoaded", function() {
             selectedHeroInfo.style.visibility = "hidden"
         })
     }
-        const marvelSection = document.getElementById("marvelSection");
-        const dcSection = document.getElementById("dcSection");
 
-        comicCompany.addEventListener("change", function() {
-            if (comicCompany.value === "marvel") {
-                marvelSection.classList.remove("hidden");
-                dcSection.classList.add("hidden");
-            } else {
-                marvelSection.classList.add("hidden");
-                dcSection.classList.remove("hidden");
-            }
-        });
+    comicCompany.addEventListener("change", function() {
+        if (comicCompany.value === "marvel") {
+            marvelContainer.classList.remove("hidden");
+            marvelSection.classList.remove("hidden");
+            dcSection.classList.add("hidden");
+            dcContainer.classList.add("hidden");
+        } else if (comicCompany.value === "dc") {
+            marvelContainer.classList.add("hidden");
+            marvelSection.classList.add("hidden");
+            dcSection.classList.remove("hidden");
+            dcContainer.classList.remove("hidden")
+        } else {
+            marvelContainer.classList.remove("hidden");
+            dcContainer.classList.remove("hidden")
+            marvelSection.classList.add("hidden");
+            dcSection.classList.add("hidden");
+        }
+    });
 });
+
 
 
 
