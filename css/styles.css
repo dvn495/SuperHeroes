@@ -27,6 +27,19 @@ option, select, input{
     height: 50px;
     color: black;
 }
+
+@media (max-width: 720px) {
+    header{
+        flex-direction: column;
+    }
+    header h1{
+        font-size: 40px;
+    }
+    option, select, input{
+        width: 100px;
+        height: 40px;
+    }
+}
 /*Title Marvel*/
 .container-title {
     background-color: rgba(160, 31, 31, 0.733);
