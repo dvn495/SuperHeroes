@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEROES</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/app.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>SUPERHEROES</h1>
+        <div>
+            <input type="text" id="searchInput" placeholder="Buscar personaje...">
+            <select id="comicCompany">
+                <option value="marvel">Marvel</option>
+                <option value="dc">DC</option>
+            </select>
+        </div>
+        
+    </header>
+    
+    <main>
+        <section class="container">
+            <div id="marvelSection" class="container-title">
+                <div class="container-logo"><img src="images/Marvel.png"></div>
+                <div class="Title"><h1>Marvel</h1></div>
+            </div>
+            <br>
+            <dialog id="selectedHeroInfo" class="overlay">
+            </dialog>
+            <div class="containerMarvel__Heroe" id="marvelHeroesContainer">
+            </div>
+        </section>
+        <br>
+        <section  class="container">
+            <div id="dcSection" class="container-title">
+                <div class="container-logo"><img src="images/DC.png"></div>
+                <div class="Title"><h1>DC</h1></div>
+            </div>
+            <br>
+            <div class="containerMarvel__Heroe" id="DCHeroesContainer">
+            </div>
+        </section>
+    </main>
+</body>
+</html>
